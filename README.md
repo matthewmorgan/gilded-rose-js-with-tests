@@ -1,3 +1,29 @@
+Modified by me from the original, found at https://github.com/istepaniuk/gilded-rose-js-with-tests, in the following ways:
+
+1. I've removed solutions, vendor files, html test runner.
+2. Added yarn support
+3. Converted `Item` and `GildedRose` to ES6 syntax
+4. Fixed some small typos in the spec files
+5. Switched test runner from `jasmine` to `jest`
+6. Made changes to support `yarn test` on the command line
+
+## Installing
+
+Clone the repo and cd to the project directory.
+Make sure you have nodejs >= 6 installed
+
+```bash
+npm install -g yarn
+npm install
+```
+
+## Running the tests
+```bash
+yarn test           \\ run once
+yarn test:watch     \\ run in watch mode
+```
+
+
 Coding Dojo
 ===========
 
@@ -6,7 +32,7 @@ Note that this Kata has been slightly modified from [the original](http://iamnot
 Gilded Rose
 ===========
 Hi and welcome to team Gilded Rose. 
-As you know, we are a small inn with a prime location in a prominent city ran by a friendly innkeeper named Allison. 
+As you know, we are a small inn with a prime location in a prominent city run by a friendly innkeeper named Allison.
 We also buy and sell only the finest goods.
 
 Unfortunately, our goods are constantly degrading in quality as they approach their sell by date. We have a system in place that updates our inventory for us. 
@@ -21,20 +47,19 @@ Pretty simple, right? Well this is where it gets interesting:
 
  - Once the sell by date has passed, Quality degrades twice as fast.
  - The Quality of an item is never negative.
- - "Aged Brie" actually increases in Quality the older it gets.
+ - "Aged Brie" increases in Quality the older it gets.
  - The Quality of an item is never more than 50, but "Sulfuras" is a legendary item and as such its Quality is always 80 and it never alters.
- - "Sulfuras", being a legendary item, never has to be sold or decreases in Quality.
- - "Backstage passes", like "Aged Brie", increases by one in Quality as it's SellIn value approaches; 
+ - "Backstage passes", like "Aged Brie", increases by one in Quality as its SellIn date approaches
      - Quality increases by 2 when there are 10 days or less 
      - Quality increases by 3 when there are 5 days or less 
-     - Quality drops to 0 after the concert.
+     - Quality drops to 0 after the concert
 
 We have recently signed a supplier of conjured items. This requires AN UPDATE to our system:
 
  - "Conjured" items degrade in Quality twice as fast as normal items
 
-Feel free to make any changes to the UpdateQuality method and add any new code as long as everything still works correctly. However, do not alter the Item class or Items property as those belong to the goblin in the corner who will insta-rage and one-shot you as he doesn't believe in shared code ownership (you can make the UpdateQuality method and Items property static if you like, we'll cover for you). 
+Feel free to make any changes to the UpdateQuality method and add any new code as long as everything still works correctly. However, do not alter the Item class or Items property as those belong to the goblin in the corner who will insta-rage and one-shot you as he doesn't believe in shared code ownership (you can make the UpdateQuality method and Items property static if you like, we'll cover for you.)
 
 Your work needs to be completed by 20:00hs.
 
-Just for clarification, an item can never have its Quality increase above 50, however 
+Just for clarification, an item can never have its Quality increase above 50.

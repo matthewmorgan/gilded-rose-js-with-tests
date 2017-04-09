@@ -5,25 +5,11 @@
  Leeroy <lerooy@example.com>
  */
 
-const Item = require('./Item');
-
-
-class GildedRose {
-  constructor() {
-    let items = [];
-    items.push(new Item("+5 Dexterity Vest", 10, 20));
-    items.push(new Item("Aged Brie", 2, 0));
-    items.push(new Item("Elixir of the Mongoose", 5, 7));
-    items.push(new Item("Sulfuras, Hand of Ragnaros", 0, 80));
-    items.push(new Item("Backstage passes to a TAFKAL80ETC concert", 15, 20));
-    items.push(new Item("Conjured Mana Cake", 3, 6));
-    this.updateQuality(items);
-  }
-
-  updateQuality(items) {
+module.exports = {
+  updateQuality: (items) => {
     for (var i = 0; i < items.length; i++) {
       if ("Aged Brie" != items[i].name && "Backstage passes to a TAFKAL80ETC concert" != items[i].name) {
-        //TODO: Improve this code.
+        //TODO: Improve this code.  Word.
         if (items[i].quality > 0) {
           if ("Sulfuras, Hand of Ragnaros" != items[i].name) {
             items[i].quality = items[i].quality - 1
@@ -37,7 +23,7 @@ class GildedRose {
               items[i].quality = items[i].quality + 1
             }
           }
-          //Increases the Quality of the stinky cheese if its 11 days to due date.
+          //Increases the Quality of the stinky cheese if it's 11 days to due date.
           if ("Aged Brie" == items[i].name) {
             if (items[i].sellIn < 11) {
               items[i].quality = items[i].quality + 1
@@ -88,6 +74,3 @@ class GildedRose {
     return items;
   }
 }
-
-
-module.exports = GildedRose;
