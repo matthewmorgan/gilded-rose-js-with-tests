@@ -19,8 +19,9 @@ npm install
 
 ## Running the tests
 ```bash
-yarn test           \\ run once
-yarn test:watch     \\ run in watch mode
+yarn test                   \\ run once
+yarn test:watch             \\ run in watch mode
+yarn test:watch:coverage    \\ run in watch mode with coverage reports
 ```
 
 
