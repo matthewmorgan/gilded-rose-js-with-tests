@@ -16,7 +16,7 @@ describe("GildedRose shop manager", () => {
 
     const expected = [
       {sellIn: 9, quality: 19},
-      {sellIn: 2, quality: 5}
+      {sellIn: 2, quality: 4}
     ];
     expected.forEach((testCase, idx) => {
       expect(items[idx].quality).toBe(testCase.quality);
@@ -80,7 +80,7 @@ describe("GildedRose shop manager", () => {
 
     const expected = [
       {sellIn: -1, quality: 18},
-      {sellIn: -1, quality: 4}
+      {sellIn: -1, quality: 2}
     ];
     expected.forEach((testCase, idx) => {
       expect(items[idx].quality).toBe(testCase.quality);
@@ -104,13 +104,13 @@ describe("GildedRose shop manager", () => {
     });
   });
 
-  it("does not alter the quality of 'Sulfuras', which is always 80", () => {
-    items.push(new Item("Sulfuras, Hand of Ragnaros", 0, 80));
+  it("does not alter the quality of 'Sulfuras', which is always 80 or its expiration", () => {
+    items.push(new Item("Sulfuras, Hand of Ragnaros", 1, 80));
 
     items = GildedRose.updateQuality(items);
 
     expect(items[0].quality).toBe(80);
-    expect(items[0].sellIn).toBe(0);
+    expect(items[0].sellIn).toBe(1);
   });
 
   it("does not increase quality over 50", () => {
@@ -121,4 +121,12 @@ describe("GildedRose shop manager", () => {
     expect(items[0].quality).toBe(50);
     expect(items[0].sellIn).toBe(3);
   });
+
+  it('does not decrease quality below 0', () => {
+    items.push(new Item('Conjured other thing', 4, 1));
+
+    let returnedItems = GildedRose.updateQuality(items);
+
+    expect(returnedItems[0].quality).toBe(0);
+  })
 });

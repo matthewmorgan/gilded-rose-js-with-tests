@@ -5,7 +5,13 @@ const cloneItem = (item) => {
 
 const decreaseQuality = (item, amountToDecreaseBy) => {
     let newItem = cloneItem(item);
+    if(item.name.toLowerCase().startsWith('conjured')){
+        amountToDecreaseBy = amountToDecreaseBy * 2;
+    }
     newItem.quality = newItem.quality - amountToDecreaseBy;
+    if(newItem.quality < 0){
+        newItem.quality = 0;
+    }
     return newItem;
 };
 
