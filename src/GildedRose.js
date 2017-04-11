@@ -1,102 +1,64 @@
-let Item = require('./Item');
+let immutableItemHelper = require('./immutableItemHelper');
+
 const SULFURAS_NAME = `Sulfuras, Hand of Ragnaros`;
 const AGED_BRIE_NAME = "Aged Brie";
 const BACKSTAGE_PASS_NAME = "Backstage passes to a TAFKAL80ETC concert";
 
-const cloneItem = (item) => {
-  return new Item(item.name, item.sellIn, item.quality);
-};
-
-const decreaseQuality = (item) => {
-    item.quality = item.quality - 1
+const isBrieOrPass = (item) => {
+    return AGED_BRIE_NAME === item.name || BACKSTAGE_PASS_NAME === item.name;
 };
 
 const decreaseQualityIfNotAgedBrieOrPass = (item) => {
-    if (item.quality > 0) {
-        let newItem = cloneItem(item);
-        newItem.quality--;
-        return newItem;
-    }
+  if (item.quality > 0 && !isBrieOrPass(item)) {
+        return immutableItemHelper.decreaseQuality(item, 1);
+  } else return item;
 };
-let brieQualityUpdate = function (item) {
 
-        if (item.sellIn < 11) {
-            item.quality = item.quality + 1
-            if (item.sellIn < 6) {
-                item.quality = item.quality + 1
-            }
-        }
+let brieOrBackstagePassQualityUpdate = function (item) {
+    if (item.sellIn < 6) {
+        return immutableItemHelper.increaseQuality(item, 3);
+    }
+    else if (item.sellIn < 11 ) {
+        return immutableItemHelper.increaseQuality(item, 2);
+    } else return immutableItemHelper.increaseQuality(item, 1);
 };
-let backstagePassQualityUpdate = function (item) {
-    if (BACKSTAGE_PASS_NAME === item.name) {
-        if (item.sellIn < 11) {
-            if (item.quality < 50) {
-                item.quality = item.quality + 1
-            }
-        }
-        if (item.sellIn < 6) {
-            if (item.quality < 50) {
-                item.quality = item.quality + 1
-            }
-        }
+
+const increaseQualityIfAgedBrieOrPass = (item) => {
+    if(isBrieOrPass(item)){
+            return brieOrBackstagePassQualityUpdate(item);
+    } else {
+        return item;
     }
 };
-const increaseQualityOfBrieOrPass = (item) => {
-    if (item.quality < 50) {
-        item.quality = item.quality + 1;
-        if (AGED_BRIE_NAME === item.name) {
-            brieQualityUpdate(item);
-        } else {
-            backstagePassQualityUpdate(item);
-        }
-    }
+
+const checkMaxQuality = (item) => {
+    if (item.quality > 50){
+        return immutableItemHelper.setQuality(item, 50);
+    } else return item;
 };
-const isBrieOrPass = (item) => {
-    return AGED_BRIE_NAME !== item.name && BACKSTAGE_PASS_NAME !== item.name;
+
+const checkExpiration = item =>{
+    if (item.sellIn < 0 && isBrieOrPass(item)) {
+        return immutableItemHelper.setQuality(item, 0);
+    }
+    if (item.quality > 0 && item.sellIn < 0) {
+        return immutableItemHelper.decreaseQuality(item, 1);
+    }
+    return item;
 };
 
 exports.updateQuality = (items) => {
-
-
-
     let updatedItems = items
         .filter(item => item.name !== SULFURAS_NAME)
-        .map((item) => {
-            if (isBrieOrPass(item)) {
-                return decreaseQualityIfNotAgedBrieOrPass(item);
-            } else {
-                increaseQualityOfBrieOrPass(item);
-                return item;
-            }
-        })
-        .map(item =>{
-        item.sellIn = item.sellIn - 1;
-
-
-        if (item.sellIn < 0) {
-            if (AGED_BRIE_NAME !== item.name) {
-                if (BACKSTAGE_PASS_NAME !== item.name && item.quality > 0) {
-                      decreaseQuality(item);
-                } else {
-                    item.quality = 0;
-                }
-            } else {
-                if (item.quality < 50) {
-                    item.quality = item.quality + 1
-                }
-                if (!(item.sellIn > 0))
-                    item.quality = 0;
-            }
-        }
-        if (item.quality > 50) item.quality = 50;
-        return item;
-    });
+        .map(decreaseQualityIfNotAgedBrieOrPass)
+        .map(increaseQualityIfAgedBrieOrPass)
+        .map(immutableItemHelper.decreaseSellIn)
+        .map(checkExpiration)
+        .map(checkMaxQuality);
 
     let sulfuras = items.find(item => item.name === SULFURAS_NAME);
-
     if(sulfuras){
       updatedItems.push(sulfuras);
     }
-
     return updatedItems;
-  };
+};
