@@ -19,6 +19,20 @@ function improvesWithAge(name){
   return "Aged Brie" === name || "Backstage passes to a TAFKAL80ETC concert" === name;
 }
 
+function increaseQuality(quality, sellIn){
+  if (sellIn < 10) {
+    quality++;
+  }
+  if (sellIn < 5) {
+    quality++;
+  }
+  return ++quality;
+}
+
+function decreaseQuality(quality){
+  return Math.max(0, quality - 1);
+}
+
 exports.updateQuality = (items) => {
   return items.map(item => {
     let {quality, sellIn, name} = item;
@@ -28,17 +42,9 @@ exports.updateQuality = (items) => {
     } else {
       sellIn--;
       if (improvesWithAge(name)) {
-        quality++;
-        if (sellIn < 10) {
-          quality++;
-        }
-        if (sellIn < 5) {
-          quality++;
-        }
+        quality = increaseQuality(quality, sellIn);
       } else {
-        if (quality > 0) {
-          quality--;
-        }
+        quality = decreaseQuality(quality);
       }
       if (sellIn < 0) {
         quality--;
