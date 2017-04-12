@@ -121,4 +121,14 @@ describe("GildedRose shop manager", () => {
     expect(items[0].quality).toBe(50);
     expect(items[0].sellIn).toBe(3);
   });
+
+  it("degrades conjured items twice as fast", () => {
+    items.push(new Item("Conjured", 10, 40));
+
+    items = GildedRose.updateQuality(items);
+
+    expect(items[0].quality).toBe(38);
+    expect(items[0].sellIn).toBe(9);
+  });
+
 });
