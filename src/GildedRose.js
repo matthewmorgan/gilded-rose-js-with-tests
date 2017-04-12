@@ -41,12 +41,9 @@ exports.updateQuality = (items) => {
         }
       }
       if (sellIn < 0) {
+        quality--;
         if (improvesWithAge(name)) {
           quality = 0;
-        } else {
-          if (quality > 0) {
-            quality--;
-          }
         }
       }
       quality = Math.min(quality, 50);
