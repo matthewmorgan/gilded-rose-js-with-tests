@@ -29,18 +29,7 @@ exports.updateQuality = (items) => {
         }
       } else {
         quality++;
-        if ("Aged Brie" == name) {
-          if (sellIn < 6) {
-            quality++;
-          }
-        }
-        //Increases the Quality of the stinky cheese if it's 11 days to due date.
-        if ("Aged Brie" == name) {
-          if (sellIn < 11) {
-            quality++;
-          }
-        }
-        if ("Backstage passes to a TAFKAL80ETC concert" == name) {
+        if ("Aged Brie" == name || "Backstage passes to a TAFKAL80ETC concert" == name) {
           if (sellIn < 11) {
             quality++;
           }
@@ -65,9 +54,7 @@ exports.updateQuality = (items) => {
           quality = 0;
         } // of for.
       }
-      if (quality > 50) {
-        quality = 50;
-      }
+      quality = Math.min(quality, 50);
       return {sellIn, name, quality};
     }
   })
