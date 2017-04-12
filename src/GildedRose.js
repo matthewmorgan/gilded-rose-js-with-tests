@@ -22,11 +22,7 @@ exports.updateQuality = (items) => {
     if (name === 'Conjured') {
       return updateConjuredItem(item);
     } else {
-      if ("Aged Brie" != name && "Backstage passes to a TAFKAL80ETC concert" != name) {
-        if (quality > 0) {
-          quality--;
-        }
-      } else {
+      if ("Aged Brie" === name || "Backstage passes to a TAFKAL80ETC concert" === name) {
         quality++;
         if (sellIn < 11) {
           quality++;
@@ -34,8 +30,12 @@ exports.updateQuality = (items) => {
         if (sellIn < 6) {
           quality++;
         }
+      } else {
+        if (quality > 0) {
+          quality--;
+        }
       }
-      sellIn = sellIn - 1;
+      sellIn--;
       if (sellIn < 0) {
         if ("Aged Brie" === name || "Backstage passes to a TAFKAL80ETC concert" === name) {
           quality = 0;
