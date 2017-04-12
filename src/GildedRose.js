@@ -26,12 +26,13 @@ exports.updateQuality = (items) => {
     if (name === 'Conjured') {
       return updateConjuredItem(item);
     } else {
+      sellIn--;
       if (improvesWithAge(name)) {
         quality++;
-        if (sellIn < 11) {
+        if (sellIn < 10) {
           quality++;
         }
-        if (sellIn < 6) {
+        if (sellIn < 5) {
           quality++;
         }
       } else {
@@ -39,7 +40,6 @@ exports.updateQuality = (items) => {
           quality--;
         }
       }
-      sellIn--;
       if (sellIn < 0) {
         if (improvesWithAge(name)) {
           quality = 0;
@@ -53,5 +53,5 @@ exports.updateQuality = (items) => {
       return {sellIn, name, quality};
     }
   })
-}
+};
 
