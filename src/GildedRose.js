@@ -15,6 +15,10 @@ function isSulfuras(name) {
   return name === 'Sulfuras, Hand of Ragnaros';
 }
 
+function improvesWithAge(name){
+  return "Aged Brie" === name || "Backstage passes to a TAFKAL80ETC concert" === name;
+}
+
 exports.updateQuality = (items) => {
   return items.map(item => {
     let {quality, sellIn, name} = item;
@@ -22,7 +26,7 @@ exports.updateQuality = (items) => {
     if (name === 'Conjured') {
       return updateConjuredItem(item);
     } else {
-      if ("Aged Brie" === name || "Backstage passes to a TAFKAL80ETC concert" === name) {
+      if (improvesWithAge(name)) {
         quality++;
         if (sellIn < 11) {
           quality++;
@@ -37,7 +41,7 @@ exports.updateQuality = (items) => {
       }
       sellIn--;
       if (sellIn < 0) {
-        if ("Aged Brie" === name || "Backstage passes to a TAFKAL80ETC concert" === name) {
+        if (improvesWithAge(name)) {
           quality = 0;
         } else {
           if (quality > 0) {
