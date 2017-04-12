@@ -28,34 +28,27 @@ exports.updateQuality = (items) => {
           quality--;
         }
       } else {
-        if (quality < 50) {
-          quality++;
-          if ("Aged Brie" == name) {
-            if (sellIn < 6) {
-              quality++;
-            }
-          }
-          //Increases the Quality of the stinky cheese if it's 11 days to due date.
-          if ("Aged Brie" == name) {
-            if (sellIn < 11) {
-              quality++;
-            }
-          }
-          if ("Backstage passes to a TAFKAL80ETC concert" == name) {
-            if (sellIn < 11) {
-              // See revision number 2394 on SVN.
-              if (quality < 50) {
-                quality++;
-              }
-            }
-            //Increases the Quality of Backstage Passes if the Quality is 6 or less.
-            if (sellIn < 6) {
-              if (quality < 50) {
-                quality++;
-              }
-            }
+        quality++;
+        if ("Aged Brie" == name) {
+          if (sellIn < 6) {
+            quality++;
           }
         }
+        //Increases the Quality of the stinky cheese if it's 11 days to due date.
+        if ("Aged Brie" == name) {
+          if (sellIn < 11) {
+            quality++;
+          }
+        }
+        if ("Backstage passes to a TAFKAL80ETC concert" == name) {
+          if (sellIn < 11) {
+            quality++;
+          }
+          if (sellIn < 6) {
+            quality++;
+          }
+        }
+
       }
       sellIn = sellIn - 1;
       if (sellIn < 0) {
@@ -69,9 +62,7 @@ exports.updateQuality = (items) => {
           }
         } else {
           quality++;
-          if (sellIn <= 0) {
-            quality = 0;
-          }
+          quality = 0;
         } // of for.
       }
       if (quality > 50) {
