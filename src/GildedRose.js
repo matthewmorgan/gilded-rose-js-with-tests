@@ -1,10 +1,3 @@
-/*
- 2006-30-84
- Leeroy was here!!
-
- Leeroy <lerooy@example.com>
- */
-
 function isSulfuras(name) {
   return name === 'Sulfuras, Hand of Ragnaros';
 }
@@ -41,7 +34,7 @@ function capQuality(quality) {
 exports.updateQuality = (items) => {
   return items.map(item => {
     let {quality, sellIn, name} = item;
-    if (isSulfuras(name)) return item;
+    if (isSulfuras(name)) return {sellIn, name, quality};
     sellIn--;
     if (improvesWithAge(name)) {
       quality = increaseQuality(quality, sellIn);
