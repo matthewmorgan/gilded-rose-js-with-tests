@@ -37,17 +37,13 @@ exports.updateQuality = (items) => {
       }
       sellIn = sellIn - 1;
       if (sellIn < 0) {
-        if ("Aged Brie" != name) {
-          if ("Backstage passes to a TAFKAL80ETC concert" != name) {
-            if (quality > 0) {
-              quality--;
-            }
-          } else {
-            quality = 0;
-          }
-        } else {
+        if ("Aged Brie" === name || "Backstage passes to a TAFKAL80ETC concert" === name) {
           quality = 0;
-        } // of for.
+        } else {
+          if (quality > 0) {
+            quality--;
+          }
+        }
       }
       quality = Math.min(quality, 50);
       return {sellIn, name, quality};
