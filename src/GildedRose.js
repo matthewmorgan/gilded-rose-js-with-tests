@@ -28,12 +28,12 @@ exports.updateQuality = (items) => {
         }
       } else {
         quality++;
-          if (sellIn < 11) {
-            quality++;
-          }
-          if (sellIn < 6) {
-            quality++;
-          }
+        if (sellIn < 11) {
+          quality++;
+        }
+        if (sellIn < 6) {
+          quality++;
+        }
       }
       sellIn = sellIn - 1;
       if (sellIn < 0) {
@@ -46,7 +46,6 @@ exports.updateQuality = (items) => {
             quality = 0;
           }
         } else {
-          quality++;
           quality = 0;
         } // of for.
       }
