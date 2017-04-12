@@ -35,6 +35,7 @@ exports.updateQuality = (items) => {
   return items.map(item => {
     let {quality, sellIn, name} = item;
     if (isSulfuras(name)) return {sellIn, name, quality};
+
     sellIn--;
     if (improvesWithAge(name)) {
       quality = increaseQuality(quality, sellIn);
@@ -44,7 +45,9 @@ exports.updateQuality = (items) => {
     if (sellIn < 0) {
       quality = decreaseQuality(quality, name);
     }
+
     quality = capQuality(quality);
+
     return {sellIn, name, quality};
   })
 };
