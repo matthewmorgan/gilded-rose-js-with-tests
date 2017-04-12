@@ -23,21 +23,17 @@ exports.updateQuality = (items) => {
       return updateConjuredItem(item);
     } else {
       if ("Aged Brie" != name && "Backstage passes to a TAFKAL80ETC concert" != name) {
-        //TODO: Improve this code.  Word.
         if (quality > 0) {
           quality--;
         }
       } else {
         quality++;
-        if ("Aged Brie" == name || "Backstage passes to a TAFKAL80ETC concert" == name) {
           if (sellIn < 11) {
             quality++;
           }
           if (sellIn < 6) {
             quality++;
           }
-        }
-
       }
       sellIn = sellIn - 1;
       if (sellIn < 0) {
