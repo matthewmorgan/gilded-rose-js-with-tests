@@ -5,13 +5,13 @@
  Leeroy <lerooy@example.com>
  */
 
-function updateConjuredItem(item){
-  item.quality-=2;
+function updateConjuredItem(item) {
+  item.quality -= 2;
   item.sellIn--;
   return item;
 }
 
-function isSulfuras(name){
+function isSulfuras(name) {
   return name === 'Sulfuras, Hand of Ragnaros';
 }
 
@@ -25,7 +25,7 @@ exports.updateQuality = (items) => {
       if ("Aged Brie" != name && "Backstage passes to a TAFKAL80ETC concert" != name) {
         //TODO: Improve this code.  Word.
         if (quality > 0) {
-            quality = quality - 1
+          quality = quality - 1
         }
       } else {
         if (quality < 50) {
@@ -57,16 +57,15 @@ exports.updateQuality = (items) => {
           }
         }
       }
-        sellIn = sellIn - 1;
+      sellIn = sellIn - 1;
       if (sellIn < 0) {
         if ("Aged Brie" != name) {
           if ("Backstage passes to a TAFKAL80ETC concert" != name) {
             if (quality > 0) {
-                quality = quality - 1
+              quality = quality - 1
             }
           } else {
-            //TODO: Fix this.
-            quality = quality - quality
+            quality = 0;
           }
         } else {
           if (quality < 50) {
@@ -76,10 +75,10 @@ exports.updateQuality = (items) => {
             quality = 0;
         } // of for.
       }
-        if (quality > 50) {
-          quality = 50;
-        }
-      return { sellIn, name, quality };
+      if (quality > 50) {
+        quality = 50;
+      }
+      return {sellIn, name, quality};
     }
   })
 }
