@@ -11,7 +11,7 @@ function updateConjuredItem(item){
 }
 
 exports.updateQuality = (items) => {
-  for (var i = 0; i < items.length; i++) {
+  items.forEach((item, i) => {
     if (items[i].name === 'Conjured') {
       updateConjuredItem(items[0]);
     } else {
@@ -81,7 +81,7 @@ exports.updateQuality = (items) => {
         }
     }
 
-  }
+  })
   return items;
 }
 
