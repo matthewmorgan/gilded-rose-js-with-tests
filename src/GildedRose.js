@@ -10,8 +10,12 @@ function updateConjuredItem(item){
   item.sellIn--;
 }
 
+function isNotSulfuras(item){
+  return item.name !== 'Sulfuras, Hand of Ragnaros';
+}
+
 exports.updateQuality = (items) => {
-  items.forEach((item, i) => {
+  items.filter(isNotSulfuras).forEach((item, i) => {
     if (items[i].name === 'Conjured') {
       updateConjuredItem(items[0]);
     } else {
