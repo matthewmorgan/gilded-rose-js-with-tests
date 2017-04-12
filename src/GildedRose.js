@@ -5,9 +5,16 @@
  Leeroy <lerooy@example.com>
  */
 
-module.exports = {
-  updateQuality: (items) => {
-    for (var i = 0; i < items.length; i++) {
+function updateConjuredItem(item){
+  item.quality-=2;
+  item.sellIn--;
+}
+
+exports.updateQuality = (items) => {
+  for (var i = 0; i < items.length; i++) {
+    if (items[i].name === 'Conjured') {
+      updateConjuredItem(items[0]);
+    } else {
       if ("Aged Brie" != items[i].name && "Backstage passes to a TAFKAL80ETC concert" != items[i].name) {
         //TODO: Improve this code.  Word.
         if (items[i].quality > 0) {
@@ -69,8 +76,12 @@ module.exports = {
         } // of for.
       }
       if ("Sulfuras, Hand of Ragnaros" != items[i].name)
-        if (items[i].quality > 50) items[i].quality = 50;
+        if (items[i].quality > 50) {
+          items[i].quality = 50;
+        }
     }
-    return items;
+
   }
+  return items;
 }
+
