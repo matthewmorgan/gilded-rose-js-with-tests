@@ -15,7 +15,7 @@ function isNotSulfuras(item){
 }
 
 exports.updateQuality = (items) => {
-  items.filter(isNotSulfuras).forEach((item, i) => {
+  items.filter(isNotSulfuras).forEach(item => {
     if (item.name === 'Conjured') {
       updateConjuredItem(item);
     } else {
