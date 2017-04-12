@@ -25,33 +25,33 @@ exports.updateQuality = (items) => {
       if ("Aged Brie" != name && "Backstage passes to a TAFKAL80ETC concert" != name) {
         //TODO: Improve this code.  Word.
         if (quality > 0) {
-          quality = quality - 1
+          quality--;
         }
       } else {
         if (quality < 50) {
-          quality = quality + 1
+          quality++;
           if ("Aged Brie" == name) {
             if (sellIn < 6) {
-              quality = quality + 1
+              quality++;
             }
           }
           //Increases the Quality of the stinky cheese if it's 11 days to due date.
           if ("Aged Brie" == name) {
             if (sellIn < 11) {
-              quality = quality + 1
+              quality++;
             }
           }
           if ("Backstage passes to a TAFKAL80ETC concert" == name) {
             if (sellIn < 11) {
               // See revision number 2394 on SVN.
               if (quality < 50) {
-                quality = quality + 1
+                quality++;
               }
             }
             //Increases the Quality of Backstage Passes if the Quality is 6 or less.
             if (sellIn < 6) {
               if (quality < 50) {
-                quality = quality + 1
+                quality++;
               }
             }
           }
@@ -62,17 +62,16 @@ exports.updateQuality = (items) => {
         if ("Aged Brie" != name) {
           if ("Backstage passes to a TAFKAL80ETC concert" != name) {
             if (quality > 0) {
-              quality = quality - 1
+              quality--;
             }
           } else {
             quality = 0;
           }
         } else {
-          if (quality < 50) {
-            quality = quality + 1
-          }
-          if ("Aged Brie" == name && sellIn <= 0)
+          quality++;
+          if (sellIn <= 0) {
             quality = 0;
+          }
         } // of for.
       }
       if (quality > 50) {
