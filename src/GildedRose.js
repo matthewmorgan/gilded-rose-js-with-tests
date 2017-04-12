@@ -1,12 +1,10 @@
-function isSulfuras(name) {
-  return name === 'Sulfuras, Hand of Ragnaros';
-}
+const isSulfuras = (name) => name === 'Sulfuras, Hand of Ragnaros';
 
-function improvesWithAge(name) {
-  return "Aged Brie" === name || "Backstage passes to a TAFKAL80ETC concert" === name;
-}
+const improvesWithAge = (name)  => "Aged Brie" === name || "Backstage passes to a TAFKAL80ETC concert" === name;
 
-function increaseQuality(quality, sellIn) {
+const capQuality = (quality) => Math.min(quality, 50);
+
+const increaseQuality = (quality, sellIn) => {
   ++quality;
   if (sellIn < 10) {
     ++quality;
@@ -15,9 +13,9 @@ function increaseQuality(quality, sellIn) {
     ++quality;
   }
   return quality;
-}
+};
 
-function decreaseQuality(quality, name) {
+const decreaseQuality = (quality, name) => {
   if (improvesWithAge(name)) {
     return 0;
   }
@@ -25,11 +23,7 @@ function decreaseQuality(quality, name) {
     quality--;
   }
   return Math.max(0, quality - 1);
-}
-
-function capQuality(quality) {
-  return Math.min(quality, 50);
-}
+};
 
 exports.updateQuality = (items) => {
   return items.map(item => {
