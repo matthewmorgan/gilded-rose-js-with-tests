@@ -25,9 +25,7 @@ exports.updateQuality = (items) => {
       if ("Aged Brie" != name && "Backstage passes to a TAFKAL80ETC concert" != name) {
         //TODO: Improve this code.  Word.
         if (quality > 0) {
-          if ("Sulfuras, Hand of Ragnaros" != name) {
             quality = quality - 1
-          }
         }
       } else {
         if (quality < 50) {
@@ -59,16 +57,12 @@ exports.updateQuality = (items) => {
           }
         }
       }
-      if ("Sulfuras, Hand of Ragnaros" != name) {
         sellIn = sellIn - 1;
-      }
       if (sellIn < 0) {
         if ("Aged Brie" != name) {
           if ("Backstage passes to a TAFKAL80ETC concert" != name) {
             if (quality > 0) {
-              if ("Sulfuras, Hand of Ragnaros" != name) {
                 quality = quality - 1
-              }
             }
           } else {
             //TODO: Fix this.
@@ -82,7 +76,6 @@ exports.updateQuality = (items) => {
             quality = 0;
         } // of for.
       }
-      if ("Sulfuras, Hand of Ragnaros" != name)
         if (quality > 50) {
           quality = 50;
         }
