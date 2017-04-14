@@ -1,44 +1,41 @@
-const isSulfuras = (name) => name === 'Sulfuras, Hand of Ragnaros';
+const neverChanges = ({name}) => name === 'Sulfuras, Hand of Ragnaros';
 
-const improvesWithAge = (name)  => "Aged Brie" === name || "Backstage passes to a TAFKAL80ETC concert" === name;
+const improvesWithAge = ({name}) => "Aged Brie" === name || "Backstage passes to a TAFKAL80ETC concert" === name;
 
-const increaseQuality = (quality, sellIn) => {
-  ++quality;
-  if (sellIn < 10) {
-    ++quality;
+const degradesTwiceAsFast = ({name, sellIn}) => name === 'Conjured'  || sellIn < 0;
+
+const increaseQuality = item => {
+  if (item.sellIn < 0) {
+    item.quality = 0;
+  } else {
+    ++item.quality;
+    if (item.sellIn < 10) {
+      ++item.quality;
+    }
+    if (item.sellIn < 5) {
+      ++item.quality;
+    }
+    item.quality = Math.min(item.quality, 50);
   }
-  if (sellIn < 5) {
-    ++quality;
-  }
-  return  Math.min(quality, 50);
 };
 
-const decreaseQuality = (quality, name) => {
-  if (improvesWithAge(name)) {
-    return 0;
+const decreaseQuality = item => {
+  let decrease = 1;
+  if (degradesTwiceAsFast(item)) {
+    decrease = 2;
   }
-  if (name === 'Conjured') {
-    quality--;
-  }
-  return Math.max(0, quality - 1);
+  item.quality = Math.max(0, item.quality - decrease);
 };
 
 exports.updateQuality = (items) => {
-  return items.map(item => {
-    let {quality, sellIn, name} = item;
-    if (isSulfuras(name)) return {sellIn, name, quality};
-
-    sellIn--;
-    if (improvesWithAge(name)) {
-      quality = increaseQuality(quality, sellIn);
-    } else {
-      quality = decreaseQuality(quality, name);
+  return items.map(i => {
+    let item = Object.assign({}, i);
+    if (neverChanges(item)) {
+      return item;
     }
-    if (sellIn < 0) {
-      quality = decreaseQuality(quality, name);
-    }
-
-    return {sellIn, name, quality};
+    item.sellIn--;
+    improvesWithAge(item) ? increaseQuality(item) : decreaseQuality(item);
+    return item;
   })
 };
 
