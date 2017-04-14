@@ -2,8 +2,6 @@ const isSulfuras = (name) => name === 'Sulfuras, Hand of Ragnaros';
 
 const improvesWithAge = (name)  => "Aged Brie" === name || "Backstage passes to a TAFKAL80ETC concert" === name;
 
-const capQuality = (quality) => Math.min(quality, 50);
-
 const increaseQuality = (quality, sellIn) => {
   ++quality;
   if (sellIn < 10) {
@@ -12,7 +10,7 @@ const increaseQuality = (quality, sellIn) => {
   if (sellIn < 5) {
     ++quality;
   }
-  return quality;
+  return  Math.min(quality, 50);
 };
 
 const decreaseQuality = (quality, name) => {
@@ -39,8 +37,6 @@ exports.updateQuality = (items) => {
     if (sellIn < 0) {
       quality = decreaseQuality(quality, name);
     }
-
-    quality = capQuality(quality);
 
     return {sellIn, name, quality};
   })
