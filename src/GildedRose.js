@@ -1,8 +1,8 @@
 const neverChanges = ({name}) => name === 'Sulfuras, Hand of Ragnaros';
 
-const improvesWithAge = ({name}) => "Aged Brie" === name || "Backstage passes to a TAFKAL80ETC concert" === name;
+const improvesWithAge = ({name}) => ["Aged Brie", "Backstage passes to a TAFKAL80ETC concert"].includes(name);
 
-const degradesTwiceAsFast = ({name, sellIn}) => name === 'Conjured'  || sellIn < 0;
+const degradesTwiceAsFast = ({name, sellIn}) => name === 'Conjured' || sellIn < 0;
 
 const increaseQuality = item => {
   if (item.sellIn < 0) {
@@ -20,11 +20,11 @@ const increaseQuality = item => {
 };
 
 const decreaseQuality = item => {
-  let decrease = 1;
+  item.quality--;
   if (degradesTwiceAsFast(item)) {
-    decrease = 2;
+    item.quality--;
   }
-  item.quality = Math.max(0, item.quality - decrease);
+  item.quality = Math.max(0, item.quality);
 };
 
 exports.updateQuality = (items) => {
