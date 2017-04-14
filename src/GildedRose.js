@@ -1,3 +1,5 @@
+const MAX_QUALITY = 50, AGE_1 = 10, AGE_2 = 5;
+
 const neverChanges = ({name}) => name === 'Sulfuras, Hand of Ragnaros';
 
 const improvesWithAge = ({name}) => ["Aged Brie", "Backstage passes to a TAFKAL80ETC concert"].includes(name);
@@ -9,13 +11,13 @@ const increaseQuality = item => {
     item.quality = 0;
   } else {
     ++item.quality;
-    if (item.sellIn < 10) {
+    if (item.sellIn < AGE_1) {
       ++item.quality;
     }
-    if (item.sellIn < 5) {
+    if (item.sellIn < AGE_2) {
       ++item.quality;
     }
-    item.quality = Math.min(item.quality, 50);
+    item.quality = Math.min(item.quality, MAX_QUALITY);
   }
 };
 
