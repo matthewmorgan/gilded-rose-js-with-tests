@@ -129,4 +129,15 @@ describe("GildedRose shop manager", () => {
     expect(items[0].sellIn).toBe(3);
   });
 
+  it("does not mutate original item", () => {
+    items.push(new Item("+5 Dexterity Vest", 10, 20));
+
+    const returnedItems = GildedRose.updateQuality(items);
+
+    expect(items[0].quality).toBe(20);
+    expect(items[0].sellIn).toBe(10);
+    expect(returnedItems[0].quality).toBe(19);
+    expect(returnedItems[0].sellIn).toBe(9);
+
+  })
 });
