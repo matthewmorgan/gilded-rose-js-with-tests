@@ -10,13 +10,11 @@ describe("GildedRose shop manager", () => {
 
   it("decreases by 1 the quality and remaining sellIn days of regular items", () => {
     items.push(new Item("+5 Dexterity Vest", 10, 20));
-    items.push(new Item("Conjured Mana Cake", 3, 6));
 
     items = GildedRose.updateQuality(items);
 
     const expected = [
-      {sellIn: 9, quality: 19},
-      {sellIn: 2, quality: 5}
+      {sellIn: 9, quality: 19}
     ];
     expected.forEach((testCase, idx) => {
       expect(items[idx].quality).toBe(testCase.quality);
@@ -72,6 +70,15 @@ describe("GildedRose shop manager", () => {
     });
   });
 
+  it("degrades conjured items twice as fast", () => {
+    items.push(new Item("Conjured Mana Cake", 10, 40));
+
+    items = GildedRose.updateQuality(items);
+
+    expect(items[0].quality).toBe(38);
+    expect(items[0].sellIn).toBe(9);
+  });
+
   it("decreases the quality and the sellIn of the products twice as fast when we have passed the sellIn date", () => {
     items.push(new Item("+5 Dexterity Vest", 0, 20));
     items.push(new Item("Conjured Mana Cake", 0, 6));
@@ -120,15 +127,6 @@ describe("GildedRose shop manager", () => {
 
     expect(items[0].quality).toBe(50);
     expect(items[0].sellIn).toBe(3);
-  });
-
-  it("degrades conjured items twice as fast", () => {
-    items.push(new Item("Conjured", 10, 40));
-
-    items = GildedRose.updateQuality(items);
-
-    expect(items[0].quality).toBe(38);
-    expect(items[0].sellIn).toBe(9);
   });
 
 });

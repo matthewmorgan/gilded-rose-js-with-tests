@@ -4,7 +4,7 @@ const neverChanges = ({name}) => name === 'Sulfuras, Hand of Ragnaros';
 
 const improvesWithAge = ({name}) => ["Aged Brie", "Backstage passes to a TAFKAL80ETC concert"].includes(name);
 
-const degradesTwiceAsFast = ({name, sellIn}) => name === 'Conjured' || sellIn < 0;
+const degradesTwiceAsFast = ({name, sellIn}) => name.startsWith('Conjured') || sellIn < 0;
 
 const increaseQuality = item => {
   if (item.sellIn < 0) {
