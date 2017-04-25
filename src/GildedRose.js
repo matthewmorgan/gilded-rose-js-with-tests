@@ -12,27 +12,11 @@ const SULFURAS = "Sulfuras, Hand of Ragnaros";
 function handleBrieAndBackstage(items, i) {
   if (items[i].quality < 50) {
     items[i].quality++;
-    if (AGED_BRIE == items[i].name) {
-      if (items[i].sellIn < 6) {
-        items[i].quality++;
-      }
-      if (items[i].sellIn < 11) {
-        items[i].quality++;
-      }
+    if (items[i].sellIn < 6) {
+      items[i].quality++;
     }
-    if (BACKSTAGE_PASSES == items[i].name) {
-      if (items[i].sellIn < 11) {
-        // See revision number 2394 on SVN.
-        if (items[i].quality < 50) {
-          items[i].quality++;
-        }
-      }
-      //Increases the Quality of Backstage Passes if the Quality is 6 or less.
-      if (items[i].sellIn < 6) {
-        if (items[i].quality < 50) {
-          items[i].quality++;
-        }
-      }
+    if (items[i].sellIn < 11) {
+      items[i].quality++;
     }
   }
 }
@@ -55,6 +39,7 @@ module.exports = {
       if (SULFURAS != items[i].name) {
         items[i].sellIn--;
       }
+
       if (items[i].sellIn < 0) {
         if (AGED_BRIE != items[i].name) {
           if (BACKSTAGE_PASSES != items[i].name) {
