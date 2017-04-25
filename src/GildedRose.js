@@ -39,7 +39,7 @@ function handleBrieAndBackstage(items, i) {
 
 module.exports = {
   updateQuality: (items) => {
-    for (var i = 0; i < items.length; i++) {
+    for (let i = 0; i < items.length; i++) {
 
       if (AGED_BRIE != items[i].name && BACKSTAGE_PASSES != items[i].name) {
         if (items[i].quality > 0) {
@@ -53,23 +53,22 @@ module.exports = {
 
 
       if (SULFURAS != items[i].name) {
-        items[i].sellIn = items[i].sellIn - 1;
+        items[i].sellIn--;
       }
       if (items[i].sellIn < 0) {
         if (AGED_BRIE != items[i].name) {
           if (BACKSTAGE_PASSES != items[i].name) {
             if (items[i].quality > 0) {
               if (SULFURAS != items[i].name) {
-                items[i].quality = items[i].quality - 1
+                items[i].quality--;
               }
             }
           } else {
-            //TODO: Fix this.
-            items[i].quality = items[i].quality - items[i].quality
+            items[i].quality = 0;
           }
         } else {
           if (items[i].quality < 50) {
-            items[i].quality = items[i].quality + 1
+            items[i].quality++;
           }
           if (AGED_BRIE == items[i].name && items[i].sellIn <= 0)
             items[i].quality = 0;
@@ -80,4 +79,4 @@ module.exports = {
     }
     return items;
   }
-}
+};
