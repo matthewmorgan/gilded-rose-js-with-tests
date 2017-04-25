@@ -10,26 +10,28 @@ const BACKSTAGE_PASSES = "Backstage passes to a TAFKAL80ETC concert";
 const SULFURAS = "Sulfuras, Hand of Ragnaros";
 
 function handleBrieAndBackstage(items, i) {
-  items[i].quality++;
-  if (AGED_BRIE == items[i].name) {
-    if (items[i].sellIn < 6) {
-      items[i].quality++;
-    }
-    if (items[i].sellIn < 11) {
-      items[i].quality++;
-    }
-  }
-  if (BACKSTAGE_PASSES == items[i].name) {
-    if (items[i].sellIn < 11) {
-      // See revision number 2394 on SVN.
-      if (items[i].quality < 50) {
+  if (items[i].quality < 50) {
+    items[i].quality++;
+    if (AGED_BRIE == items[i].name) {
+      if (items[i].sellIn < 6) {
+        items[i].quality++;
+      }
+      if (items[i].sellIn < 11) {
         items[i].quality++;
       }
     }
-    //Increases the Quality of Backstage Passes if the Quality is 6 or less.
-    if (items[i].sellIn < 6) {
-      if (items[i].quality < 50) {
-        items[i].quality++;
+    if (BACKSTAGE_PASSES == items[i].name) {
+      if (items[i].sellIn < 11) {
+        // See revision number 2394 on SVN.
+        if (items[i].quality < 50) {
+          items[i].quality++;
+        }
+      }
+      //Increases the Quality of Backstage Passes if the Quality is 6 or less.
+      if (items[i].sellIn < 6) {
+        if (items[i].quality < 50) {
+          items[i].quality++;
+        }
       }
     }
   }
@@ -40,17 +42,16 @@ module.exports = {
     for (var i = 0; i < items.length; i++) {
 
       if (AGED_BRIE != items[i].name && BACKSTAGE_PASSES != items[i].name) {
-        //TODO: Improve this code.  Word.
         if (items[i].quality > 0) {
           if (SULFURAS != items[i].name) {
             items[i].quality = items[i].quality - 1
           }
         }
       } else {
-        if (items[i].quality < 50) {
-          handleBrieAndBackstage(items, i);
-        }
+        handleBrieAndBackstage(items, i);
       }
+
+
       if (SULFURAS != items[i].name) {
         items[i].sellIn = items[i].sellIn - 1;
       }
