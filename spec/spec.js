@@ -87,7 +87,7 @@ describe("GildedRose shop manager", () => {
 
     const expected = [
       {sellIn: -1, quality: 18},
-      {sellIn: -1, quality: 4}
+      {sellIn: -1, quality: 2}
     ];
     expected.forEach((testCase, idx) => {
       expect(items[idx].quality).toBe(testCase.quality);
