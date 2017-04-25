@@ -120,7 +120,7 @@ describe("GildedRose shop manager", () => {
     expect(items[0].sellIn).toBe(3);
   });
 
-  it("conjured items decrease in quality 2x as fast", () => {
+  xit("conjured items decrease in quality 2x as fast", () => {
     items.push(new Item("Conjured Mana Cake", 3, 6));
 
     items = GildedRose.updateQuality(items);
