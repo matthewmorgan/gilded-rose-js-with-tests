@@ -14,8 +14,7 @@ function isQualityBelowMaximum(item, number) {
 }
 module.exports = {
   updateQuality: (items) => {
-    for (var i = 0; i < items.length; i++) {
-      let item = items[i];
+    items.forEach(item =>{
       if ("Aged Brie" != item.name && "Backstage passes to a TAFKAL80ETC concert" != item.name) {
         //TODO: Improve this code.  Word.
         if (item.quality > 0) {
@@ -78,7 +77,7 @@ module.exports = {
       }
       if ("Sulfuras, Hand of Ragnaros" != item.name)
         if (item.quality > 50) item.quality = 50;
-    }
+    });
     return items;
   }
 }
