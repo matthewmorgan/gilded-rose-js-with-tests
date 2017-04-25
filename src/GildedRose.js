@@ -38,7 +38,7 @@ const decreaseQuality = (item) => {
 
 exports.updateQuality = (items) => {
   return items.map(i => {
-    let item = Object.assign({}, i);
+    let item = {...i};
     if (neverChanges(item)) {
       return item;
     }
