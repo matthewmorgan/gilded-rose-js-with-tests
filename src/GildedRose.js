@@ -4,9 +4,13 @@
 
  Leeroy <lerooy@example.com>
  */
+const MAXIMUM_QUALITY = 50;
 
 function increaseQuality(item) {
     item.quality = item.quality + 1
+}
+function isQualityBelowMaximum(item, number) {
+    return item.quality < MAXIMUM_QUALITY;
 }
 module.exports = {
   updateQuality: (items) => {
@@ -19,7 +23,7 @@ module.exports = {
           }
         }
       } else {
-        if (items[i].quality < 50) {
+        if (isQualityBelowMaximum(items[i])) {
           increaseQuality(items[i])
           if ("Aged Brie" == items[i].name) {
             if (items[i].sellIn < 6) {
@@ -35,13 +39,13 @@ module.exports = {
           if ("Backstage passes to a TAFKAL80ETC concert" == items[i].name) {
             if (items[i].sellIn < 11) {
               // See revision number 2394 on SVN.
-              if (items[i].quality < 50) {
+              if (isQualityBelowMaximum(items[i])) {
                 increaseQuality(items[i])
               }
             }
             //Increases the Quality of Backstage Passes if the Quality is 6 or less.
             if (items[i].sellIn < 6) {
-              if (items[i].quality < 50) {
+              if (isQualityBelowMaximum(items[i])) {
                 increaseQuality(items[i])
               }
             }
@@ -64,7 +68,7 @@ module.exports = {
             items[i].quality = items[i].quality - items[i].quality
           }
         } else {
-          if (items[i].quality < 50) {
+          if (isQualityBelowMaximum(items[i])) {
             increaseQuality(items[i])
           }
           if ("Aged Brie" == items[i].name && items[i].sellIn <= 0)
