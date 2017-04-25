@@ -5,6 +5,9 @@
  Leeroy <lerooy@example.com>
  */
 
+function increaseQuality(item) {
+    item.quality = item.quality + 1
+}
 module.exports = {
   updateQuality: (items) => {
     for (var i = 0; i < items.length; i++) {
@@ -17,29 +20,29 @@ module.exports = {
         }
       } else {
         if (items[i].quality < 50) {
-          items[i].quality = items[i].quality + 1
+          increaseQuality(items[i])
           if ("Aged Brie" == items[i].name) {
             if (items[i].sellIn < 6) {
-              items[i].quality = items[i].quality + 1
+              increaseQuality(items[i])
             }
           }
           //Increases the Quality of the stinky cheese if it's 11 days to due date.
           if ("Aged Brie" == items[i].name) {
             if (items[i].sellIn < 11) {
-              items[i].quality = items[i].quality + 1
+              increaseQuality(items[i]);
             }
           }
           if ("Backstage passes to a TAFKAL80ETC concert" == items[i].name) {
             if (items[i].sellIn < 11) {
               // See revision number 2394 on SVN.
               if (items[i].quality < 50) {
-                items[i].quality = items[i].quality + 1
+                increaseQuality(items[i])
               }
             }
             //Increases the Quality of Backstage Passes if the Quality is 6 or less.
             if (items[i].sellIn < 6) {
               if (items[i].quality < 50) {
-                items[i].quality = items[i].quality + 1
+                increaseQuality(items[i])
               }
             }
           }
@@ -62,7 +65,7 @@ module.exports = {
           }
         } else {
           if (items[i].quality < 50) {
-            items[i].quality = items[i].quality + 1
+            increaseQuality(items[i])
           }
           if ("Aged Brie" == items[i].name && items[i].sellIn <= 0)
             items[i].quality = 0;
