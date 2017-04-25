@@ -8,6 +8,33 @@
 const AGED_BRIE = "Aged Brie";
 const BACKSTAGE_PASSES = "Backstage passes to a TAFKAL80ETC concert";
 const SULFURAS = "Sulfuras, Hand of Ragnaros";
+
+function handleBrieAndBackstage(items, i) {
+  items[i].quality++;
+  if (AGED_BRIE == items[i].name) {
+    if (items[i].sellIn < 6) {
+      items[i].quality++;
+    }
+    if (items[i].sellIn < 11) {
+      items[i].quality++;
+    }
+  }
+  if (BACKSTAGE_PASSES == items[i].name) {
+    if (items[i].sellIn < 11) {
+      // See revision number 2394 on SVN.
+      if (items[i].quality < 50) {
+        items[i].quality++;
+      }
+    }
+    //Increases the Quality of Backstage Passes if the Quality is 6 or less.
+    if (items[i].sellIn < 6) {
+      if (items[i].quality < 50) {
+        items[i].quality++;
+      }
+    }
+  }
+}
+
 module.exports = {
   updateQuality: (items) => {
     for (var i = 0; i < items.length; i++) {
@@ -21,32 +48,7 @@ module.exports = {
         }
       } else {
         if (items[i].quality < 50) {
-          items[i].quality = items[i].quality + 1
-          if (AGED_BRIE == items[i].name) {
-            if (items[i].sellIn < 6) {
-              items[i].quality = items[i].quality + 1
-            }
-          }
-          //Increases the Quality of the stinky cheese if it's 11 days to due date.
-          if (AGED_BRIE == items[i].name) {
-            if (items[i].sellIn < 11) {
-              items[i].quality = items[i].quality + 1
-            }
-          }
-          if (BACKSTAGE_PASSES == items[i].name) {
-            if (items[i].sellIn < 11) {
-              // See revision number 2394 on SVN.
-              if (items[i].quality < 50) {
-                items[i].quality = items[i].quality + 1
-              }
-            }
-            //Increases the Quality of Backstage Passes if the Quality is 6 or less.
-            if (items[i].sellIn < 6) {
-              if (items[i].quality < 50) {
-                items[i].quality = items[i].quality + 1
-              }
-            }
-          }
+          handleBrieAndBackstage(items, i);
         }
       }
       if (SULFURAS != items[i].name) {
