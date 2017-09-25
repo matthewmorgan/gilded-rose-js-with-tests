@@ -12,7 +12,7 @@ module.exports = {
         //TODO: Improve this code.  Word.
         if (items[i].quality > 0) {
           if ("Sulfuras, Hand of Ragnaros" != items[i].name) {
-            decreaseByOne(items[i]);
+            decreaseQualityByOne(items[i]);
           }
         }
       } else {
@@ -53,7 +53,7 @@ module.exports = {
           if ("Backstage passes to a TAFKAL80ETC concert" != items[i].name) {
             if (items[i].quality > 0) {
               if ("Sulfuras, Hand of Ragnaros" != items[i].name) {
-                decreaseByOne(items[i]);
+                items[i].quality-=1;
               }
             }
           } else {
@@ -79,6 +79,10 @@ function incrementQuality (item) {
   item.quality+=1;
 }
 
-function decreaseByOne(item){
-  item.quality-=1;
+function decreaseQualityByOne(item){
+  const decreaseBin = ["Aged Brie", "Backstage passes to a TAFKAL80ETC concert", "Sulfuras, Hand of Ragnaros"]
+  const hasItem = decreaseBin.indexOf(item.name) !== -1;
+  if (!hasItem && item.quality > 0) {
+    item.quality-=1;
+  }
 }
