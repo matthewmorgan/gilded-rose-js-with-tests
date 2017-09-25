@@ -8,15 +8,17 @@
 module.exports = {
   updateQuality: (items) => { // items array of objects
     for (var i = 0; i < items.length; i++) {
-      if ("Aged Brie" != items[i].name && "Backstage passes to a TAFKAL80ETC concert" != items[i].name) {
-        //TODO: Improve this code.  Word.
-        if (items[i].quality > 0) {
-          if ("Sulfuras, Hand of Ragnaros" != items[i].name) {
-            decreaseQualityByOne(items[i]);
-          }
-        }
-      } else {
-        if (items[i].quality < 50) {
+      const hasDecreased = decreaseQualityByOne(items[i]);
+      // if ("Aged Brie" != items[i].name && "Backstage passes to a TAFKAL80ETC concert" != items[i].name) {
+      //   //TODO: Improve this code.  Word.
+      //   if (items[i].quality > 0) {
+      //     if ("Sulfuras, Hand of Ragnaros" != items[i].name) {
+      //       decreaseQualityByOne(items[i]);
+      //     }
+      //   }
+      // } else {
+
+        if (items[i].quality < 50 && !hasDecreased) {
           incrementQuality(items[i]);
           if ("Aged Brie" == items[i].name) {
             if (items[i].sellIn < 6) {
@@ -44,7 +46,7 @@ module.exports = {
             }
           }
         }
-      }
+      //}
       if ("Sulfuras, Hand of Ragnaros" != items[i].name) {
         items[i].sellIn = items[i].sellIn - 1;
       }
@@ -84,5 +86,9 @@ function decreaseQualityByOne(item){
   const hasItem = decreaseBin.indexOf(item.name) !== -1;
   if (!hasItem && item.quality > 0) {
     item.quality-=1;
+    return true;
+  }
+  else {
+    return false;
   }
 }
