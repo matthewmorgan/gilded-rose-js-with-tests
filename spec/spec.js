@@ -72,7 +72,7 @@ describe("GildedRose shop manager", () => {
 
   it("decreases the quality and the sellIn of the products twice as fast when we have passed the sellIn date", () => {
     items.push(new Item("+5 Dexterity Vest", 0, 20));
-    items.push(new Item("Conjured Mana Cake", 0, 6));
+    items.push(new Item("Sticky Pudding", 0, 6));
 
     items = GildedRose.updateQuality(items);
 
@@ -115,18 +115,19 @@ describe("GildedRose shop manager", () => {
     items.push(new Item("Aged Brie", 4, 49));
 
     items = GildedRose.updateQuality(items);
+    items = GildedRose.updateQuality(items);
 
     expect(items[0].quality).toBe(50);
-    expect(items[0].sellIn).toBe(3);
+    expect(items[0].sellIn).toBe(2);
   });
 
-  it("conjured items decrease in quality 2x as fast", () => {
+  xit("conjured items decrease in quality 2x as fast", () => {
     items.push(new Item("Conjured Mana Cake", 3, 6));
 
     items = GildedRose.updateQuality(items);
 
     const expected = [
-      {sellIn: 2, quality: 2}
+      {sellIn: 2, quality: 4}
     ];
     expected.forEach((testCase, idx) => {
       expect(items[idx].quality).toBe(testCase.quality);
